@@ -14,3 +14,12 @@ An Hospital Management System buit with Django and with the following fuctionali
 4. Setup your database (Use Postgres, as the application depends on the Postgres ArrayField) in the env file, a sample and template is there which you can edit.
 5. Next run "python manage.py migrate"
 6. Then run "python manage.py runserver"
+
+# URLS:
+1. /login - Login for both user
+2. /staff/signup - Staff registration
+3. /user/signup - User registration
+4. /logout - Logout for both user
+5. /record - homepage displaying statistical details of users (All users)
+6. /record/add - Add medical history for user (User Only)
+7. /record/users - A table showing the users and their medical records (Staff Only)
