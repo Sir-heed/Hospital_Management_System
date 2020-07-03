@@ -1,0 +1,63 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<h1>User Details</h1>
+<div class="search">
+    <form action="{% url 'record:user_details' %}" method='POST'>
+        {% csrf_token %}
+        <label for="search">Filter by disease:</label>
+        <select name="disease_options">
+            <option value="" class="filter-input">All</option>
+            {% for item in disease_list %}
+            <option value="{{item}}" class="filter-input">{{ item|upper }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Apply">
+    </form>
+</div>
+<div class="site-table">
+    <table>
+        <tr>
+            <th>
+                Users
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Blood Group
+            </th>
+            <th>
+                Genotype
+            </th>
+            <th>
+                Diseases
+            </th>
+            <th>
+                Surgeries
+            </th>
+            <th>
+                Vaccinations
+            </th>
+            <th>
+                Allergies
+            </th>
+            <th>
+                Medications
+            </th>
+        </tr>
+        {% for patient in patients %}
+        <tr>
+            <td>{{ patient.user.lastName }} {{patient.user.firstName}}</td>
+            <td>{{ patient.user.gender }}</td>
+            <td>{{ patient.medicalhistory.bloodgroup }}</td>
+            <td>{{ patient.medicalhistory.genotype }}</td>
+            <td>{{ patient.medicalhistory.diseases }}</td>
+            <td>{{ patient.medicalhistory.surgeries }}</td>
+            <td>{{ patient.medicalhistory.vaccinations }}</td>
+            <td>{{ patient.medicalhistory.allergies }}</td>
+            <td>{{ patient.medicalhistory.medications }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

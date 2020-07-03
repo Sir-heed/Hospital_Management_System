@@ -1,0 +1,10 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>Error</h1>
+<div class="site-form">
+    {{ context }}
+    <br />
+    <button class="submit"><a href="{% url 'record:home' %}">Back to home</a></button>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <!-- For static files in the main directory -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    {% block myscript %}{% endblock %}
+    <!-- For static files in the app directory -->
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'articles/styles.css' %}"> -->
+</head>
+
+<body>
+    <header class="wrapper">
+        <h1><a href="{% url 'record:home' %}"><img src="" alt="HMS"></a></h1>
+        <nav>
+            <ul>
+                {% if user.is_authenticated %}
+                {% if user.patient %}
+                <li><a href="{% url 'record:add_record' %}">Add Record</a></li>
+                {% else %}
+                <li><a href="{% url 'record:user_details' %}">Patient Info</a></li>
+                {% endif %}
+                <li>
+                    <!-- <form action="{% url 'users:logout' %}" class="logout-link" method="POST">
+                        {% csrf_token %}
+                        <button type="submit">Logout</button>
+                    </form> -->
+                    <button><a href="{% url 'users:logout' %}">Logout</a></button>
+                </li>
+                {% else %}
+                <li><a href="{% url 'users:login' %}">Login</a></li>
+                <li><a href="{% url 'users:staff_signup' %}">Staff Signup</a></li>
+                <li><a href="{% url 'users:patient_signup' %}">Patient Signup</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <div class="wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+
+</html>

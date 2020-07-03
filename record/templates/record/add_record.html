@@ -1,0 +1,13 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<h1>Medical Record</h1>
+<p style="color: yellow;">Note:</p>
+<p>Ensure to separate input with a comma after each input for cases where there are more than one input</p>
+<p> Use None instead of leaving the field empty when necessary.</p>
+<form action="{% url 'record:add_record' %}" class="site-form" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

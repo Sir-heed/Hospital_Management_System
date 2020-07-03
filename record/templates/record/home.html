@@ -1,0 +1,57 @@
+{% extends 'base_layout.html' %}
+{% block myscript %}
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);
+
+    // Disease Chart
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable({{ disease_data| safe }});
+
+    var options = {
+        title: 'Diseases Chart'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+    chart.draw(data, options);
+    }
+
+    // Bloodgroup Chart
+    function drawChart1() {
+        var data = google.visualization.arrayToDataTable({{ bloodgroup_data| safe }});
+
+    var options = {
+        title: 'BloodGroup Chart'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+    chart.draw(data, options);
+    }
+
+    // Genotype Chart
+    function drawChart2() {
+        var data = google.visualization.arrayToDataTable({{ genotype_data| safe }});
+
+    var options = {
+        title: 'Genotype Chart'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart3'));
+
+    chart.draw(data, options);
+    }
+</script>
+{% endblock %}
+{% block content %}
+<h1>Home Page</h1>
+<div id="piechart1" style="height: 500px;"></div>
+<div style="display: flex; flex-direction:row; ">
+    <div id="piechart2" style="height: 500px;width: 100%;"></div>
+    <div id="piechart3" style="height: 500px;width: 100%;"></div>
+</div>
+{% endblock %}
