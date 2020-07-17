@@ -7,8 +7,8 @@
         <label for="search">Filter by disease:</label>
         <select name="disease_options">
             <option value="" class="filter-input">All</option>
-            {% for item in disease_list %}
-            <option value="{{item}}" class="filter-input">{{ item|upper }}</option>
+            {% for disease in diseases %}
+            <option value="{{disease}}" class="filter-input">{{ disease.disease_name|upper }}</option>
             {% endfor %}
         </select>
         <input type="submit" value="Apply">
@@ -51,11 +51,26 @@
             <td>{{ patient.user.gender }}</td>
             <td>{{ patient.medicalhistory.bloodgroup }}</td>
             <td>{{ patient.medicalhistory.genotype }}</td>
-            <td>{{ patient.medicalhistory.diseases }}</td>
-            <td>{{ patient.medicalhistory.surgeries }}</td>
-            <td>{{ patient.medicalhistory.vaccinations }}</td>
-            <td>{{ patient.medicalhistory.allergies }}</td>
-            <td>{{ patient.medicalhistory.medications }}</td>
+            <td>{% for disease in patient.medicalhistory.disease_set.all %}
+                {{ disease.disease_name }}
+                {% endfor %}
+            </td>
+            <td>{% for surgery in patient.medicalhistory.surgery_set.all %}
+                {{ surgery.surgery_name }}
+                {% endfor %}
+            </td>
+            <td>{% for vaccination in patient.medicalhistory.vaccination_set.all %}
+                {{ vaccination.vaccination_name }}
+                {% endfor %}
+            </td>
+            <td>{% for allergy in patient.medicalhistory.allergy_set.all %}
+                {{ allergy.allergy_name }}
+                {% endfor %}
+            </td>
+            <td>{% for medication in patient.medicalhistory.medication_set.all %}
+                {{ medication.medication_name }}
+                {% endfor %}
+            </td>
         </tr>
         {% endfor %}
     </table>

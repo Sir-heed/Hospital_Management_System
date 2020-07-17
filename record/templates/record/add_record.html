@@ -2,12 +2,118 @@
 
 {% block content %}
 <h1>Medical Record</h1>
-<p style="color: yellow;">Note:</p>
+<!-- <p style="color: yellow;">Note:</p>
 <p>Ensure to separate input with a comma after each input for cases where there are more than one input</p>
-<p> Use None instead of leaving the field empty when necessary.</p>
+<p> Use None instead of leaving the field empty when necessary.</p> -->
 <form action="{% url 'record:add_record' %}" class="site-form" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    <!-- surgery fom -->
+    <div class="field_wrapper">
+        <div>
+            {{ surgery_form.as_p }}
+            <a href="javascript:void(0);" class="add_button" title="Add field" style="color: #00dba0;">Add More</a>
+        </div>
+    </div>
+    <!-- allergy form -->
+    <div class="field_wrapper1">
+        <div>
+            {{ allergy_form.as_p }}
+            <a href="javascript:void(0);" class="add_button1" title="Add field" style="color: #00dba0;">Add More</a>
+        </div>
+    </div>
+    <!-- disease form -->
+    <div class=" field_wrapper2">
+        <div>
+            {{ disease_form.as_p }}
+            <a href="javascript:void(0);" class="add_button2" title="Add field" style="color: #00dba0">Add More</a>
+        </div>
+    </div>
+    <!-- vaccination form -->
+    <div class=" field_wrapper3">
+        <div>
+            {{ vaccination_form.as_p }}
+            <a href="javascript:void(0);" class="add_button3" title="Add field" style="color: #00dba0">Add More</a>
+        </div>
+    </div>
+    <!-- medication form -->
+    <div class=" field_wrapper4">
+        <div>
+            {{ medication_form.as_p }}
+            <a href="javascript:void(0);" class="add_button4" title="Add field" style="color: #00dba0">Add More</a>
+        </div>
+    </div>
+    <!-- medical history form -->
+    {{ med_hist_form.as_p }}
     <input type="submit" value="Submit">
 </form>
+{% endblock %}
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function addMore(addButton, wrapper, removeButtonClass, removeButton, field) {
+            var maxField = 10; //Input fields increment limitation
+            var fieldHTML = `<div>${field}<a href="javascript:void(0);" class=${removeButtonClass} style="color: red";>Remove</a></div>`; //New input field html 
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            $(addButton).click(function () {
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            $(wrapper).on('click', removeButton, function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        }
+
+        // SURGERY FORM ADD MORE
+        var addButton = $('.add_button'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var removeButtonClass = "remove_button"
+        var removeButton = ".remove_button"
+        var field = `{{ surgery_form.surgery_name }}`
+        addMore(addButton, wrapper, removeButtonClass, removeButton, field);
+
+
+        // ALLERGY FORM ADD MORE
+        var addButton1 = $('.add_button1'); //Add button selector
+        var wrapper1 = $('.field_wrapper1'); //Input field wrapper
+        var removeButtonClass1 = "remove_button1"
+        var removeButton1 = ".remove_button1"
+        var field1 = `{{ allergy_form.allergy_name }}`
+        addMore(addButton1, wrapper1, removeButtonClass1, removeButton1, field1);
+
+        // DISEASE FORM ADD MORE
+        var addButton2 = $('.add_button2'); //Add button selector
+        var wrapper2 = $('.field_wrapper2'); //Input field wrapper
+        var removeButtonClass2 = "remove_button2"
+        var removeButton2 = ".remove_button2"
+        var field2 = `{{ disease_form.disease_name }}`
+        addMore(addButton2, wrapper2, removeButtonClass2, removeButton2, field2);
+
+        // VACCINATION FORM ADD MORE
+        var addButton3 = $('.add_button3'); //Add button selector
+        var wrapper3 = $('.field_wrapper3'); //Input field wrapper
+        var removeButtonClass3 = "remove_button3"
+        var removeButton3 = ".remove_button3"
+        var field3 = `{{ vaccination_form.vaccination_name }}`
+        addMore(addButton3, wrapper3, removeButtonClass3, removeButton3, field3);
+
+        // VACCINATION FORM ADD MORE
+        var addButton4 = $('.add_button4'); //Add button selector
+        var wrapper4 = $('.field_wrapper4'); //Input field wrapper
+        var removeButtonClass4 = "remove_button4"
+        var removeButton4 = ".remove_button4"
+        var field4 = `{{ medication_form.medication_name }}`
+        addMore(addButton4, wrapper4, removeButtonClass4, removeButton4, field4);
+    });
+</script>
 {% endblock %}

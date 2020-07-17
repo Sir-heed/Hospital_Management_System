@@ -23,36 +23,36 @@ class MedicalHistory(models.Model):
         return "{} {}".format(self.patient.user.lastName, self.patient.user.firstName)
 
 class Disease(models.Model):
-    name = models.CharField(max_length=200)
-    medicalHistory = models.ForeignKey(MedicalHistory, on_delete=models.CASCADE, related_name="disease")
+    disease_name = models.CharField(max_length=200)
+    medicalHistory = models.ManyToManyField(MedicalHistory)
 
     def __str__(self):
-        return self.name
+        return self.disease_name
 
 class Surgery(models.Model):
-    name = models.CharField(max_length=200)
-    medicalHistory = models.ForeignKey(MedicalHistory, on_delete=models.CASCADE, related_name="surgery")
+    surgery_name = models.CharField(max_length=200)
+    medicalHistory = models.ManyToManyField(MedicalHistory)
 
     def __str__(self):
-        return self.name
+        return self.surgery_name
 
 class Vaccination(models.Model):
-    name = models.CharField(max_length=200)
-    medicalHistory = models.ForeignKey(MedicalHistory, on_delete=models.CASCADE, related_name="vaccination")
+    vaccination_name = models.CharField(max_length=200)
+    medicalHistory = models.ManyToManyField(MedicalHistory)
 
     def __str__(self):
-        return self.name
+        return self.vaccination_name
 
 class Allergy(models.Model):
-    name = models.CharField(max_length=200)
-    medicalHistory = models.ForeignKey(MedicalHistory, on_delete=models.CASCADE, related_name="allergy")
+    allergy_name = models.CharField(max_length=200)
+    medicalHistory = models.ManyToManyField(MedicalHistory)
 
     def __str__(self):
-        return self.name
+        return self.allergy_name
 
 class Medication(models.Model):
-    name = models.CharField(max_length=200)
-    medicalHistory = models.ForeignKey(MedicalHistory, on_delete=models.CASCADE, related_name="medication")
+    medication_name = models.CharField(max_length=200)
+    medicalHistory = models.ManyToManyField(MedicalHistory)
 
     def __str__(self):
-        return self.name
+        return self.medication_name

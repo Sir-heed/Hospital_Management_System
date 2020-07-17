@@ -11,7 +11,7 @@ An Hospital Management System buit with Django and with the following fuctionali
 1. Clone the repository to your local machine
 2. Create a python virtual environment 
 3. Change directory into the project folder where you have the requirements.txt file, and run pip install -r requirements.txt
-4. Setup your database (Use Postgres, as the application depends on the Postgres ArrayField) in the env file, a sample and template is there which you can edit.
+4. Setup your database or go on and use the default django database (sqlite)
 5. Next run "python manage.py migrate"
 6. Then run "python manage.py runserver"
 
